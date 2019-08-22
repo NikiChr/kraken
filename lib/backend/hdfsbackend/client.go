@@ -114,7 +114,8 @@ func (c *Client) Download(namespace, name string, dst io.Writer) error {
 
 // Upload uploads src to name.
 func (c *Client) Upload(namespace, name string, src io.Reader) error {
-	uploadPath := path.Join(c.config.RootDirectory, c.config.UploadDirectory, uuid.NewV4().String())
+	u, err := uuid.NewV4()
+	uploadPath := path.Join(c.config.RootDirectory, c.config.UploadDirectory, u.String())
 	blobPath, err := c.pather.BlobPath(name)
 	if err != nil {
 		return fmt.Errorf("blob path: %s", err)
